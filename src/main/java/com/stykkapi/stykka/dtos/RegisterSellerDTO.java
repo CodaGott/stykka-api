@@ -4,7 +4,6 @@ import lombok.Data;
 import org.jetbrains.annotations.NotNull;
 
 @Data
-
 public class RegisterSellerDTO {
     @NotNull
     private String sellerFirstName;
