@@ -67,11 +67,57 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public ProductDTO findProductByProductName(String productName) throws ProductException {
-        if(productRepository.findById(productName).isPresent()){
-            return findProductByProductName(productName);
-        }else
-            throw new ProductException("Product not found");
-
+    public List<Product> findProductByProductName(String productName)  {
+        return productRepository.findProductByProductName(productName);
     }
+
+    @Override
+    public Product updateProductInfo(Product updateProduct, String productId) {
+        Optional<Product> optionalProduct = productRepository.findById(productId);
+
+        optionalProduct.ifPresent(
+                product -> {
+                    if(Optional.ofNullable(updateProduct.getProductName()).isPresent())
+                        optionalProduct.get().setProductName(updateProduct.getProductName());
+
+                    if(Optional.ofNullable(updateProduct.getProductSpec()).isPresent())
+                        optionalProduct.get().setProductSpec(updateProduct.getProductSpec());
+
+                    if(Optional.ofNullable(updateProduct.getPrice()).isPresent())
+                        optionalProduct.get().setPrice(updateProduct.getPrice());
+
+                    if(Optional.ofNullable(updateProduct.getProductDescription()).isPresent())
+                        optionalProduct.get().setProductDescription(updateProduct.getProductDescription());
+
+                    if(Optional.ofNullable(updateProduct.getCategory()).isPresent())
+                        optionalProduct.get().setCategory(updateProduct.getCategory());
+
+                    if(Optional.ofNullable(updateProduct.getQuantity()).isPresent())
+                        optionalProduct.get().setQuantity(updateProduct.getQuantity());
+
+                    if(Optional.ofNullable(updateProduct.getSubCategory()).isPresent())
+                        optionalProduct.get().setSubCategory(updateProduct.getSubCategory());
+
+                    if(Optional.ofNullable(updateProduct.getReview()).isPresent())
+                        optionalProduct.get().setReview(updateProduct.getReview());
+
+                    if(Optional.ofNullable(updateProduct.getSellerName()).isPresent())
+                        optionalProduct.get().setSellerName(updateProduct.getSellerName());
+                }
+
+        );
+        return productRepository.save(updateProduct);
+    }
+
+    @Override
+    public List<Product> findByProductCategories(String productCategory) {
+        return productRepository.findProductByCategory(productCategory);
+    }
+
+    @Override
+    public List<Product> findByProductPrice(double productPrice) {
+        return productRepository.findByPrice(productPrice);
+    }
+
+
 }

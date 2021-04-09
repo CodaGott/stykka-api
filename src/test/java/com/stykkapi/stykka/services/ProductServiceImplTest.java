@@ -79,27 +79,13 @@ class ProductServiceImplTest {
 
         productService.deleteProductByName(productDTO.getProductName());
 
-        assertEquals(productRepository.count(), 8);
+        assertEquals(7, productRepository.count());
     }
 
     @Test
     void findProductByName()  {
-        productDTO.setProductName("product name");
-        productDTO.setProductDescription("My product good geh");
-        productDTO.setProductSpec("spec");
-        productDTO.setPrice(44.9);
-        productDTO.setQuantity(7);
-        productDTO.setCategory("for guys");
-        productDTO.setSubCategory("grown up");
-        productDTO.setReview("review");
-        productDTO.setSellerName("Seller Name");
-        try {
-            productService.findProductByProductName("product name");
-            assertEquals("product name", productDTO.getProductName());
-        }
-        catch (ProductException e){
-            e.getLocalizedMessage();
-        }
+
+            assertEquals(3, productService.findProductByProductName("product name").size());
     }
 
     @Test
@@ -111,6 +97,15 @@ class ProductServiceImplTest {
         catch(ProductException e){
             e.getLocalizedMessage();
         }
+    }
 
+    @Test
+    void findByCategories(){
+        assertEquals(3, productService.findByProductCategories("for guys").size());
+    }
+
+    @Test
+    void findByProductPrice(){
+        assertEquals(3, productService.findByProductPrice(44.9).size());
     }
 }

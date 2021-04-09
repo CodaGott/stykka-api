@@ -19,7 +19,11 @@ public interface ProductService {
 
     void addProduct(ProductDTO product);
 
-    ProductDTO findProductByProductName (String productName) throws ProductException;
+    List<Product> findProductByProductName (String productName) ;
 
+    Product updateProductInfo(Product updateProduct, String productId);
 
+    List<Product> findByProductCategories(String productCategory);
+
+    List<Product> findByProductPrice(double productPrice);
 }
