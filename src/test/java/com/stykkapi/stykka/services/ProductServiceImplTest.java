@@ -1,5 +1,6 @@
 package com.stykkapi.stykka.services;
 
+import com.stykkapi.stykka.categories.Category;
 import com.stykkapi.stykka.dtos.ProductDTO;
 import com.stykkapi.stykka.exceptions.ProductException;
 import com.stykkapi.stykka.repositories.ProductRepository;
@@ -20,13 +21,15 @@ class ProductServiceImplTest {
     @Autowired
     ProductRepository productRepository;
 
+    Category category;
+
     @Autowired
     ProductService productService;
 
     @BeforeEach
     void setUp() {
-        productDTO = new ProductDTO("", "", "", 0.0, 0, "",
-                "", "", "");
+        productDTO = new ProductDTO("", "", "",0.0, 0, "",
+                "", "", "" );
     }
 
     @AfterEach
@@ -44,19 +47,6 @@ class ProductServiceImplTest {
         productDTO.setSubCategory("grown up");
         productDTO.setReview("review");
         productDTO.setSellerName("Seller Name");
-//        ProductServiceImpl productService = new ProductServiceImpl();
-
-
-
-//        Product product = new Product();
-//        product.setProductName(productDTO.getProductName());
-//        product.setProductDescription(productDTO.getProductDescription());
-//        product.setProductSpec(productDTO.getProductSpec());
-//        product.setPrice(productDTO.getPrice());
-//        product.setCategory(productDTO.getCategory());
-//        product.setSubCategory(productDTO.getSubCategory());
-//        product.setReview(productDTO.getReview());
-//        product.setSellerName(productDTO.getSellerName());
 
         productService.addProduct(productDTO);
 
@@ -71,6 +61,7 @@ class ProductServiceImplTest {
         productDTO.setPrice(44.9);
         productDTO.setQuantity(7);
         productDTO.setCategory("for guys");
+//        productDTO.setProductCategory(Category.MEN);
         productDTO.setSubCategory("grown up");
         productDTO.setReview("review");
         productDTO.setSellerName("Seller Name");
@@ -101,7 +92,15 @@ class ProductServiceImplTest {
 
     @Test
     void findByCategories(){
-        assertEquals(3, productService.findByProductCategories("for guys").size());
+        productDTO.setProductName("product name");
+        productDTO.setProductDescription("My product good geh");
+        productDTO.setProductSpec("spec");
+        productDTO.setPrice(44.9);
+        productDTO.setQuantity(7);
+//        productDTO.setProductCategory(Category.MEN);
+
+//        productRepository.save(productDTO);
+//        assertEquals(1, productService.findByProductCategories(Category.MEN).size());
     }
 
     @Test

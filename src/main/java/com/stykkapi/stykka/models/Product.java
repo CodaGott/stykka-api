@@ -1,5 +1,6 @@
 package com.stykkapi.stykka.models;
 
+import com.stykkapi.stykka.categories.Category;
 import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -13,6 +14,7 @@ public class Product {
     private String productId;
     private String productName;
     private String productDescription;
+    private Category productCategory;
     private double price;
     private Integer quantity;
     private String productSpec;

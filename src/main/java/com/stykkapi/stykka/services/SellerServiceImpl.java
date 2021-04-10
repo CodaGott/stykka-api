@@ -21,23 +21,23 @@ public class SellerServiceImpl implements SellerService {
     }
 
     @Override
-    public void saveSeller(RegisterSellerDTO newSeller) throws SellerException{
+    public Seller saveSeller(RegisterSellerDTO newSeller) throws SellerException{
         Optional<Seller> optionalSeller = sellerRepository.findSellerBySellerEmail(newSeller.getSellerEmail());
+        Seller seller = new Seller();
 
         if (optionalSeller.isPresent()){
             throw new SellerException("Seller Already exist");
+        }else{
+            seller.setSellerFirstName(newSeller.getSellerFirstName());
+            seller.setSellerLastName(newSeller.getSellerLastName());
+            seller.setSellerEmail(newSeller.getSellerEmail());
+            seller.setSellerPassword(newSeller.getSellerPassword());
+            seller.setStoreName(newSeller.getStoreName());
+            seller.setBankName(newSeller.getBankName());
+            seller.setAccountNumber(newSeller.getAccountNumber());
+
+            return sellerRepository.save(seller);
         }
-        Seller seller = new Seller();
-
-        seller.setSellerFirstName(newSeller.getSellerFirstName());
-        seller.setSellerLastName(newSeller.getSellerLastName());
-        seller.setSellerEmail(newSeller.getSellerEmail());
-        seller.setSellerPassword(newSeller.getSellerPassword());
-        seller.setStoreName(newSeller.getStoreName());
-        seller.setBankName(newSeller.getBankName());
-        seller.setAccountNumber(newSeller.getAccountNumber());
-
-        sellerRepository.save(seller);
     }
 
     @Override

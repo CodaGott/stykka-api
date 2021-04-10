@@ -1,5 +1,6 @@
 package com.stykkapi.stykka.services;
 
+import com.stykkapi.stykka.categories.Category;
 import com.stykkapi.stykka.dtos.ProductDTO;
 import com.stykkapi.stykka.exceptions.ProductException;
 import com.stykkapi.stykka.models.Product;
@@ -61,6 +62,7 @@ public class ProductServiceImpl implements ProductService{
         product.setCategory(productDTO.getCategory());
         product.setSubCategory(productDTO.getSubCategory());
         product.setReview(productDTO.getReview());
+//        product.setProductCategory(productDTO.getProductCategory());
 
         productRepository.save(product);
 
@@ -89,8 +91,8 @@ public class ProductServiceImpl implements ProductService{
                     if(Optional.ofNullable(updateProduct.getProductDescription()).isPresent())
                         optionalProduct.get().setProductDescription(updateProduct.getProductDescription());
 
-                    if(Optional.ofNullable(updateProduct.getCategory()).isPresent())
-                        optionalProduct.get().setCategory(updateProduct.getCategory());
+                    if(Optional.ofNullable(updateProduct.getProductCategory()).isPresent())
+                        optionalProduct.get().setProductCategory(updateProduct.getProductCategory());
 
                     if(Optional.ofNullable(updateProduct.getQuantity()).isPresent())
                         optionalProduct.get().setQuantity(updateProduct.getQuantity());
@@ -110,7 +112,7 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> findByProductCategories(String productCategory) {
+    public List<Product> findByProductCategories(Category productCategory) {
         return productRepository.findProductByCategory(productCategory);
     }
 

@@ -13,6 +13,8 @@ public class ProductDTO {
     private String productDescription;
     @NotNull
     private String productSpec;
+//    @NotNull
+//    private Category productCategory;
     @NotNull
     private double price;
     @NotNull
