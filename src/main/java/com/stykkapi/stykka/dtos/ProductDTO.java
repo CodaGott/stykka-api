@@ -1,10 +1,14 @@
 package com.stykkapi.stykka.dtos;
 
+import com.stykkapi.stykka.categories.Category;
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
+import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.NotNull;
+
 
 @Data
-//@NoArgsConstructor
+@NoArgsConstructor
 public class ProductDTO {
 
     @NotNull
@@ -13,8 +17,8 @@ public class ProductDTO {
     private String productDescription;
     @NotNull
     private String productSpec;
-//    @NotNull
-//    private Category productCategory;
+    @NotNull
+    private Category productCategory;
     @NotNull
     private double price;
     @NotNull

@@ -22,9 +22,9 @@ class SellerServiceImplTest {
     RegisterSellerDTO seller;
 
     @BeforeEach
-    void setUp() {
-        seller = new RegisterSellerDTO("", "", "", "", "", "", "");
-    }
+//    void setUp() {
+//        seller = new RegisterSellerDTO("", "", "", "", "", "", "");
+//    }
 
     @AfterEach
     void tearDown() {

@@ -3,6 +3,7 @@ package com.stykkapi.stykka.services;
 import com.stykkapi.stykka.categories.Category;
 import com.stykkapi.stykka.dtos.ProductDTO;
 import com.stykkapi.stykka.exceptions.ProductException;
+import com.stykkapi.stykka.models.Product;
 import com.stykkapi.stykka.repositories.ProductRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -16,6 +17,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest
 class ProductServiceImplTest {
 
+    Product product = new Product();
+
     ProductDTO productDTO;
 
     @Autowired
@@ -28,8 +31,7 @@ class ProductServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        productDTO = new ProductDTO("", "", "",0.0, 0, "",
-                "", "", "" );
+        productDTO = new ProductDTO();
     }
 
     @AfterEach
@@ -47,11 +49,16 @@ class ProductServiceImplTest {
         productDTO.setSubCategory("grown up");
         productDTO.setReview("review");
         productDTO.setSellerName("Seller Name");
+        try {
+            productService.addProduct(productDTO);
 
-        productService.addProduct(productDTO);
+            assertEquals(productRepository.count(), 8);
+        }catch (ProductException e){
+            e.getLocalizedMessage();
+        }
 
-        assertEquals(productRepository.count(), 8);
     }
+
 
     @Test
     void deleteByProductName(){
@@ -61,12 +68,9 @@ class ProductServiceImplTest {
         productDTO.setPrice(44.9);
         productDTO.setQuantity(7);
         productDTO.setCategory("for guys");
-//        productDTO.setProductCategory(Category.MEN);
         productDTO.setSubCategory("grown up");
         productDTO.setReview("review");
         productDTO.setSellerName("Seller Name");
-
-//        productRepository.save(productDTO);
 
         productService.deleteProductByName(productDTO.getProductName());
 
@@ -75,7 +79,6 @@ class ProductServiceImplTest {
 
     @Test
     void findProductByName()  {
-
             assertEquals(3, productService.findProductByProductName("product name").size());
     }
 
@@ -92,19 +95,41 @@ class ProductServiceImplTest {
 
     @Test
     void findByCategories(){
-        productDTO.setProductName("product name");
-        productDTO.setProductDescription("My product good geh");
-        productDTO.setProductSpec("spec");
-        productDTO.setPrice(44.9);
-        productDTO.setQuantity(7);
-//        productDTO.setProductCategory(Category.MEN);
-
-//        productRepository.save(productDTO);
-//        assertEquals(1, productService.findByProductCategories(Category.MEN).size());
+        assertEquals(2, productService.findByProductCategories(Category.MEN.toString()).size());
     }
 
     @Test
     void findByProductPrice(){
-        assertEquals(3, productService.findByProductPrice(44.9).size());
+        assertEquals(5, productService.findByProductPrice(44.9).size());
+    }
+
+    @Test
+    void productCanBeCreated(){
+        productDTO.setProductName("name of product");
+        productDTO.setProductDescription("My product");
+        productDTO.setProductSpec("spec");
+        productDTO.setPrice(44.9);
+        productDTO.setQuantity(7);
+        productDTO.setProductCategory(Category.MEN);
+        productDTO.setSubCategory("sub");
+        productDTO.setReview("my review");
+        productDTO.setSellerName("mr seller");
+        productDTO.setCategory("string category");
+
+        try{
+            productService.addProduct(productDTO);
+            assertEquals(9, productRepository.count());
+        }catch (ProductException e){
+            e.getLocalizedMessage();
+        }
+
+
+    }
+
+    @Test
+    void canFindAllProducts(){
+        for (Product products : productService.findAllProducts()){
+            System.out.println(products.getProductCategory());
+        }
     }
 }

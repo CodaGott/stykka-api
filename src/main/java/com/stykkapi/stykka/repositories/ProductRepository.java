@@ -1,6 +1,5 @@
 package com.stykkapi.stykka.repositories;
 
-import com.stykkapi.stykka.categories.Category;
 import com.stykkapi.stykka.models.Product;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
@@ -12,7 +11,7 @@ public interface ProductRepository extends MongoRepository<Product, String> {
 
     List<Product> findProductByProductName (String productName);
 
-    List<Product> findProductByCategory(Category productCategory);
+    List<Product> findProductByCategory(String productCategory);
 
     List<Product> findByPrice(double productPrice);
 }
