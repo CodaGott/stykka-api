@@ -21,9 +21,9 @@ public interface ProductService {
 
     List<Product> findProductByProductName (String productName) ;
 
-    Product updateProductInfo(Product updateProduct, String productId);
+    Product updateProductInfo(Product updateProduct, String productId) throws ProductException;
 
     List<Product> findByProductCategories(String productCategory);
 
-    List<Product> findByProductPrice(double productPrice);
+    List<Product> findByProductPrice(double productPrice) throws ProductException;
 }
