@@ -37,10 +37,10 @@ public class ProductController {
     }
 
     @GetMapping("/searchByPrice")
-    public ResponseEntity<?> searchByPrice(@RequestBody double productPrice){
+    public ResponseEntity<?> searchByPrice(@RequestParam double productPrice){
         try{
             productService.findByProductPrice(productPrice);
-            return new ResponseEntity<>("Search result(s)", HttpStatus.FOUND);
+            return new ResponseEntity<>("Search result(s) \n " + productService.findByProductPrice(productPrice), HttpStatus.FOUND);
         }catch (ProductException e){
             return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.NO_CONTENT);
         }

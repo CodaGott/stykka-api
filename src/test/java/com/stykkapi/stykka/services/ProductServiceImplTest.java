@@ -95,13 +95,14 @@ class ProductServiceImplTest {
 
     @Test
     void findByCategories(){
-        assertEquals(2, productService.findByProductCategories(Category.MEN.toString()).size());
+
+        assertEquals(5, productService.findByProductCategories(Category.MEN).size());
     }
 
     @Test
     void findByProductPrice(){
         try{
-            assertEquals(5, productService.findByProductPrice(44.9).size());
+            assertEquals(7, productService.findByProductPrice(44.9).size());
         }catch (ProductException e){
             e.getLocalizedMessage();
         }

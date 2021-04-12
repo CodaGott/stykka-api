@@ -1,5 +1,6 @@
 package com.stykkapi.stykka.services;
 
+import com.stykkapi.stykka.categories.Category;
 import com.stykkapi.stykka.dtos.ProductDTO;
 import com.stykkapi.stykka.exceptions.ProductException;
 import com.stykkapi.stykka.models.Product;
@@ -111,13 +112,14 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public List<Product> findByProductCategories(String productCategory) {
+    public List<Product> findByProductCategories(Category productCategory) {
 //        Optional<Product> optionalProductCategory = productRepository.findById(productCategory);
-        return productRepository.findProductByCategory(productCategory);
+        return productRepository.findProductByProductCategory(productCategory);
     }
 
     @Override
     public List<Product> findByProductPrice(double productPrice) {
+
         return productRepository.findByPrice(productPrice);
     }
 }

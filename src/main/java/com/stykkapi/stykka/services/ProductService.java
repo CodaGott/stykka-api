@@ -1,5 +1,6 @@
 package com.stykkapi.stykka.services;
 
+import com.stykkapi.stykka.categories.Category;
 import com.stykkapi.stykka.dtos.ProductDTO;
 import com.stykkapi.stykka.exceptions.ProductException;
 import com.stykkapi.stykka.models.Product;
@@ -23,7 +24,7 @@ public interface ProductService {
 
     Product updateProductInfo(Product updateProduct, String productId) throws ProductException;
 
-    List<Product> findByProductCategories(String productCategory);
+    List<Product> findByProductCategories(Category productCategory);
 
     List<Product> findByProductPrice(double productPrice) throws ProductException;
 }
