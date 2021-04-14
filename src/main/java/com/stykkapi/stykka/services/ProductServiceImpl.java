@@ -74,41 +74,44 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public Product updateProductInfo(Product updateProduct, String productId) {
+    public void updateProductInfo(Product updateProduct, String productId) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
+//        if (optionalProduct.get().equals(productId)){
+//            return;
+//        }
 
         optionalProduct.ifPresent(
                 product -> {
-                    if(Optional.ofNullable(updateProduct.getProductName()).isPresent())
-                        optionalProduct.get().setProductName(updateProduct.getProductName());
+                    if(updateProduct.getProductName() != null)
+                        product.setProductName(updateProduct.getProductName());
 
-                    if(Optional.ofNullable(updateProduct.getProductSpec()).isPresent())
-                        optionalProduct.get().setProductSpec(updateProduct.getProductSpec());
+                    if(updateProduct.getProductSpec() != null)
+                        product.setProductSpec(updateProduct.getProductSpec());
 
-                    if(Optional.ofNullable(updateProduct.getPrice()).isPresent())
-                        optionalProduct.get().setPrice(updateProduct.getPrice());
+                    if(updateProduct.getPrice() != -1)
+                        product.setPrice(updateProduct.getPrice());
 
-                    if(Optional.ofNullable(updateProduct.getProductDescription()).isPresent())
-                        optionalProduct.get().setProductDescription(updateProduct.getProductDescription());
+                    if(updateProduct.getProductDescription() != null)
+                        product.setProductDescription(updateProduct.getProductDescription());
 
-                    if(Optional.ofNullable(updateProduct.getProductCategory()).isPresent())
-                        optionalProduct.get().setProductCategory(updateProduct.getProductCategory());
+                    if(updateProduct.getProductCategory() != null)
+                        product.setProductCategory(updateProduct.getProductCategory());
 
-                    if(Optional.ofNullable(updateProduct.getQuantity()).isPresent())
-                        optionalProduct.get().setQuantity(updateProduct.getQuantity());
+                    if(!updateProduct.getQuantity().equals(-1) || updateProduct.getQuantity() != null)
+                        product.setQuantity(updateProduct.getQuantity());
 
-                    if(Optional.ofNullable(updateProduct.getSubCategory()).isPresent())
-                        optionalProduct.get().setSubCategory(updateProduct.getSubCategory());
+                    if(updateProduct.getSubCategory() != null)
+                        product.setSubCategory(updateProduct.getSubCategory());
 
-                    if(Optional.ofNullable(updateProduct.getReview()).isPresent())
-                        optionalProduct.get().setReview(updateProduct.getReview());
+                    if(updateProduct.getReview() != null)
+                        product.setReview(updateProduct.getReview());
 
-                    if(Optional.ofNullable(updateProduct.getSellerName()).isPresent())
-                        optionalProduct.get().setSellerName(updateProduct.getSellerName());
+                    if(updateProduct.getSellerName() != null)
+                        product.setSellerName(updateProduct.getSellerName());
                 }
 
         );
-        return productRepository.save(updateProduct);
+        productRepository.save(updateProduct);
     }
 
     @Override

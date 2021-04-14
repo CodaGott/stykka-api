@@ -138,4 +138,19 @@ class ProductServiceImplTest {
             System.out.println(products.getProductCategory());
         }
     }
+
+    @Test
+    void canUpdateProduct(){
+        productDTO.setProductName("this is a test");
+        productDTO.setProductDescription("My product");
+        productDTO.setProductSpec("spec");
+        productDTO.setPrice(8);
+        productDTO.setQuantity(7);
+        productDTO.setProductCategory(Category.MEN);
+        productDTO.setSubCategory("sub");
+        productDTO.setReview("my review");
+        productDTO.setSellerName("mr seller");
+        productDTO.setCategory("string category");
+//        productService.updateProductInfo(productService.addProduct(productDTO), "606e47a340c4cc711c9d8436");
+    }
 }

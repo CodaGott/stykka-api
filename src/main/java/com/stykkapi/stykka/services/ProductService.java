@@ -22,7 +22,7 @@ public interface ProductService {
 
     List<Product> findProductByProductName (String productName) ;
 
-    Product updateProductInfo(Product updateProduct, String productId) throws ProductException;
+    void updateProductInfo(Product updateProduct, String productId) throws ProductException;
 
     List<Product> findByProductCategories(Category productCategory);
 

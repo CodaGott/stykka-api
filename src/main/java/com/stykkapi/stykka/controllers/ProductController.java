@@ -26,8 +26,8 @@ public class ProductController {
         }
     }
 
-    @PatchMapping("/updateProductInfo")
-    public ResponseEntity<?> updateProduct(@RequestBody Product updateProduct, String productId){
+    @PatchMapping("/product/{productId}")
+    public ResponseEntity<?> updateProduct(@RequestBody Product updateProduct, @PathVariable String productId){
         try{
             productService.updateProductInfo(updateProduct, productId);
             return new ResponseEntity<>("information updated successfully!", HttpStatus.OK);
