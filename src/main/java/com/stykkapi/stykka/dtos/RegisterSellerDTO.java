@@ -1,10 +1,9 @@
 package com.stykkapi.stykka.dtos;
 
 import lombok.Data;
-import org.jetbrains.annotations.NotNull;
+import javax.validation.constraints.NotNull;
 
 @Data
-
 public class RegisterSellerDTO {
     @NotNull
     private String sellerFirstName;

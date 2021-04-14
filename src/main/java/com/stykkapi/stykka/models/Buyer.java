@@ -6,7 +6,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import java.util.List;
+import java.util.HashSet;
 
 @Data
 @Document(collection = "buyers")
@@ -18,5 +18,6 @@ public class Buyer{
     private String buyerLastName;
     private String buyerEmail;
     private String buyerPassword;
-    private List<Address> addresses;
+    private String newPassword;
+    private HashSet<Address> addresses = new HashSet<>();
 }

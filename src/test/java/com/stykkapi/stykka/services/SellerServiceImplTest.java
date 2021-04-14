@@ -22,9 +22,9 @@ class SellerServiceImplTest {
     RegisterSellerDTO seller;
 
     @BeforeEach
-    void setUp() {
-        seller = new RegisterSellerDTO("", "", "", "", "", "", "");
-    }
+//    void setUp() {
+//        seller = new RegisterSellerDTO("", "", "", "", "", "", "");
+//    }
 
     @AfterEach
     void tearDown() {
@@ -36,7 +36,7 @@ class SellerServiceImplTest {
 
         seller.setSellerFirstName("Seller");
         seller.setSellerLastName("last name");
-        seller.setSellerEmail("selleremail@uemail.com");
+        seller.setSellerEmail("thiseremail@uemail.com");
         seller.setSellerPassword("pws");
         seller.setStoreName("my store");
         seller.setBankName("My Bank");
@@ -44,7 +44,7 @@ class SellerServiceImplTest {
 
         try {
             sellerService.saveSeller(seller);
-            assertEquals(sellerRepository.count(), 6);
+            assertEquals(sellerRepository.count(), 7);
         } catch (SellerException e) {
             e.getLocalizedMessage();
         }
