@@ -11,22 +11,23 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping(value = "/product")
 public class ProductController {
 
     @Autowired
     ProductService productService;
 
-    @PostMapping(value = "/addProduct")
-    public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO){
+    @PostMapping(value = "/addProduct/seller{sellerEmail}")
+    public ResponseEntity<?> addProduct(@RequestBody ProductDTO productDTO, @PathVariable String sellerEmail){
         try{
-            productService.addProduct(productDTO);
+            productService.addProduct(productDTO, sellerEmail);
             return new ResponseEntity<>("Product added successfully!", HttpStatus.CREATED);
         }catch (ProductException e){
             return new ResponseEntity<>(e.getLocalizedMessage(), HttpStatus.BAD_REQUEST);
         }
     }
 
-    @PatchMapping("/product/{productId}")
+    @PatchMapping("/{productId}")
     public ResponseEntity<?> updateProduct(@RequestBody Product updateProduct, @PathVariable String productId){
         try{
             productService.updateProductInfo(updateProduct, productId);

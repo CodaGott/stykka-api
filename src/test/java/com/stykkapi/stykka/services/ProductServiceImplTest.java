@@ -4,12 +4,15 @@ import com.stykkapi.stykka.categories.Category;
 import com.stykkapi.stykka.dtos.ProductDTO;
 import com.stykkapi.stykka.exceptions.ProductException;
 import com.stykkapi.stykka.models.Product;
+import com.stykkapi.stykka.models.Seller;
 import com.stykkapi.stykka.repositories.ProductRepository;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -18,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class ProductServiceImplTest {
 
     Product product = new Product();
+
 
     ProductDTO productDTO;
 
@@ -49,8 +53,11 @@ class ProductServiceImplTest {
         productDTO.setSubCategory("grown up");
         productDTO.setReview("review");
         productDTO.setSellerName("Seller Name");
+        Seller seller = new Seller();
+        seller.setSellerEmail("seller email");
+
         try {
-            productService.addProduct(productDTO);
+            productService.addProduct(productDTO, seller.getSellerEmail());
 
             assertEquals(productRepository.count(), 8);
         }catch (ProductException e){
@@ -121,9 +128,11 @@ class ProductServiceImplTest {
         productDTO.setReview("my review");
         productDTO.setSellerName("mr seller");
         productDTO.setCategory("string category");
+        Seller seller = new Seller();
+        seller.setSellerEmail("Selleremail@gmail.com");
 
         try{
-            productService.addProduct(productDTO);
+            productService.addProduct(productDTO, seller.getSellerEmail());
             assertEquals(9, productRepository.count());
         }catch (ProductException e){
             e.getLocalizedMessage();
@@ -141,16 +150,22 @@ class ProductServiceImplTest {
 
     @Test
     void canUpdateProduct(){
-        productDTO.setProductName("this is a test");
-        productDTO.setProductDescription("My product");
-        productDTO.setProductSpec("spec");
-        productDTO.setPrice(8);
-        productDTO.setQuantity(7);
-        productDTO.setProductCategory(Category.MEN);
-        productDTO.setSubCategory("sub");
-        productDTO.setReview("my review");
-        productDTO.setSellerName("mr seller");
-        productDTO.setCategory("string category");
-//        productService.updateProductInfo(productService.addProduct(productDTO), "606e47a340c4cc711c9d8436");
+        Optional<Product> optionalProduct = productRepository.findById("6076a5b25e27987ff3d475cf");
+        Product product = new Product();
+        product.setProductName("The");
+        try{
+            productService.updateProductInfo(product, "6076a5b25e27987ff3d475cf");
+            assertEquals("The", optionalProduct.get().getProductName());
+        }catch (ProductException e){
+            e.getLocalizedMessage();
+        }
+    }
+
+    @Test
+    void testing(){
+        Product sellerForProduct = new Product();
+        Seller seller = new Seller();
+        sellerForProduct.setStoreName("the seller");
+
     }
 }

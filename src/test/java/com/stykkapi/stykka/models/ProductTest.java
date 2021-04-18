@@ -31,7 +31,7 @@ class ProductTest {
         product.setProductName("DozieProduct");
         product.setProductDescription("Real product no fake");
         product.setCategory("Men cloth");
-        product.setSellerName("Dozie Enterprises");
+        product.setStoreName("Dozie Enterprises");
 
         productRepository.save(product);
         assertEquals(productRepository.count(), 1);
@@ -43,7 +43,7 @@ class ProductTest {
         product.setProductName("DozieProduct");
         product.setProductDescription("Real product no fake");
         product.setCategory("Men cloth");
-        product.setSellerName("Dozie Enterprises");
+        product.setStoreName("Dozie Enterprises");
 
         Product thisProduct = productRepository.save(product);
         Optional<Product> findOptionalUser = productRepository.findById(thisProduct.getProductId());
@@ -55,7 +55,7 @@ class ProductTest {
         product.setProductName("DozieProduct");
         product.setProductDescription("Real product no fake");
         product.setCategory("Men cloth");
-        product.setSellerName("Dozie Enterprises");
+        product.setStoreName("Dozie Enterprises");
 
         Product thisProduct = productRepository.save(product);
         Optional<Product> findOptionalUser = productRepository.findById(thisProduct.getProductId());
@@ -73,7 +73,7 @@ class ProductTest {
         newProdut.setProductName("DozieProduct");
         newProdut.setProductDescription("Real product no fake");
         newProdut.setCategory("Men cloth");
-        newProdut.setSellerName("Dozie Enterprises");
+        newProdut.setStoreName("Dozie Enterprises");
 
         productRepository.save(newProdut);
 

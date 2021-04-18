@@ -30,5 +30,5 @@ public class ProductDTO {
     @NotNull
     private String review;
     @NotNull
-    private String sellerName;
+    private String storeName;
 }

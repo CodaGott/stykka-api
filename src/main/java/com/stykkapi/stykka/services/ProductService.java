@@ -18,13 +18,14 @@ public interface ProductService {
 
     void deleteProductByName(String productName);
 
-    void addProduct(ProductDTO product) throws ProductException;
+    void addProduct(ProductDTO product, String sellerEmail) throws ProductException;
 
     List<Product> findProductByProductName (String productName) ;
 
-    void updateProductInfo(Product updateProduct, String productId) throws ProductException;
+    Product updateProductInfo(Product updateProduct, String productId) throws ProductException;
 
     List<Product> findByProductCategories(Category productCategory);
 
     List<Product> findByProductPrice(double productPrice) throws ProductException;
+
 }

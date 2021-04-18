@@ -8,6 +8,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @Data
 @Document(collection = "product")
 @NoArgsConstructor
+@AllArgsConstructor
 public class Product {
 
     @Id
@@ -21,5 +22,6 @@ public class Product {
     private String category;
     private String subCategory;
     private String review;
-    private String sellerName;
+    private String storeName;
+    private String sellerId;
 }

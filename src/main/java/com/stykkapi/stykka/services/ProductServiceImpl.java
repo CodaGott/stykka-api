@@ -4,7 +4,9 @@ import com.stykkapi.stykka.categories.Category;
 import com.stykkapi.stykka.dtos.ProductDTO;
 import com.stykkapi.stykka.exceptions.ProductException;
 import com.stykkapi.stykka.models.Product;
+import com.stykkapi.stykka.models.Seller;
 import com.stykkapi.stykka.repositories.ProductRepository;
+import com.stykkapi.stykka.repositories.SellerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +19,9 @@ public class ProductServiceImpl implements ProductService{
 
     @Autowired
     ProductRepository productRepository;
+
+    @Autowired
+    SellerRepository sellerRepository;
 
     @Override
     public List<Product> findAllProducts() {
@@ -50,20 +55,25 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void addProduct(ProductDTO productDTO) {
+    public void addProduct(ProductDTO productDTO, String sellerId) {
         Product product = new Product();
 
-        product.setProductName(productDTO.getProductName());
-        product.setProductDescription(productDTO.getProductDescription());
-        product.setProductSpec(productDTO.getProductSpec());
-        product.setProductSpec(productDTO.getProductSpec());
-        product.setPrice(productDTO.getPrice());
-        product.setQuantity(productDTO.getQuantity());
-        product.setCategory(productDTO.getCategory());
-        product.setSubCategory(productDTO.getSubCategory());
-        product.setReview(productDTO.getReview());
-        product.setProductCategory(productDTO.getProductCategory());
+        Optional<Seller> optionalSeller = sellerRepository.findById(sellerId);
 
+        if (optionalSeller.isPresent()) {
+            product.setProductName(productDTO.getProductName());
+            product.setProductDescription(productDTO.getProductDescription());
+            product.setProductSpec(productDTO.getProductSpec());
+            product.setProductSpec(productDTO.getProductSpec());
+            product.setPrice(productDTO.getPrice());
+            product.setQuantity(productDTO.getQuantity());
+            product.setCategory(productDTO.getCategory());
+            product.setSubCategory(productDTO.getSubCategory());
+            product.setReview(productDTO.getReview());
+            product.setProductCategory(productDTO.getProductCategory());
+            product.setSellerId(optionalSeller.get().getSellerId());
+            product.setStoreName(productDTO.getStoreName());
+        }
         productRepository.save(product);
 
     }
@@ -74,10 +84,10 @@ public class ProductServiceImpl implements ProductService{
     }
 
     @Override
-    public void updateProductInfo(Product updateProduct, String productId) {
+    public Product updateProductInfo(Product updateProduct, String productId) {
         Optional<Product> optionalProduct = productRepository.findById(productId);
 //        if (optionalProduct.get().equals(productId)){
-//            return;
+//            return updateProduct;
 //        }
 
         optionalProduct.ifPresent(
@@ -97,7 +107,7 @@ public class ProductServiceImpl implements ProductService{
                     if(updateProduct.getProductCategory() != null)
                         product.setProductCategory(updateProduct.getProductCategory());
 
-                    if(!updateProduct.getQuantity().equals(-1) || updateProduct.getQuantity() != null)
+                    if( updateProduct.getQuantity() != null)
                         product.setQuantity(updateProduct.getQuantity());
 
                     if(updateProduct.getSubCategory() != null)
@@ -106,12 +116,11 @@ public class ProductServiceImpl implements ProductService{
                     if(updateProduct.getReview() != null)
                         product.setReview(updateProduct.getReview());
 
-                    if(updateProduct.getSellerName() != null)
-                        product.setSellerName(updateProduct.getSellerName());
+                    if(updateProduct.getStoreName() != null)
+                        product.setStoreName(updateProduct.getStoreName());
                 }
-
         );
-        productRepository.save(updateProduct);
+        return productRepository.save(optionalProduct.get());
     }
 
     @Override
